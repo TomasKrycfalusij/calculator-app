@@ -4,32 +4,50 @@ import { useState } from 'react';
 
 
 const Calculator = ({startValue}) => {
-  const [currentDisplay, setCurrentDisplay] = useState(startValue);
+  var [currentDisplay, setCurrentDisplay] = useState(startValue);
   var result = 0;
 
   const Calculate = () => {
     console.clear();
     const resultBefore = currentDisplay.split(" ");
-    resultBefore.forEach((element) => checkSigns(element, resultBefore));
+    var i = 0;
+    checkSigns(resultBefore, i);
     setCurrentDisplay((result).toString());
   }
-
-  const checkSigns = (element, resultBefore) => {
-    console.log(resultBefore.length);
-    console.log("[0] = " + parseInt(resultBefore[0]));
+  
+  const checkSigns = (resultBefore, i) => {
     if (resultBefore.length <= 1) {
       result = parseInt(resultBefore[0]);
     }
-    else if (element === "+") {
-      result += parseInt(resultBefore[0]);
-      result += parseInt(resultBefore[2]);
-      console.log("+", result)
+    result = parseInt(resultBefore[i]);
+    while (i < resultBefore.length) {
+      if (resultBefore[i] === "+") {
+        result += parseInt(resultBefore[i + 1]);
+        i += 1;
+      }
+      else if (resultBefore[i] === "-") {
+        result -= parseInt(resultBefore[i + 1]);
+        i += 1;
+      }
+      else {
+        i += 1;
+      }
     }
-    else if (element === "-") {
-      result += parseInt(resultBefore[0]);
-      result -= parseInt(resultBefore[2]);
-      console.log("-", result)
+  }
+
+  const deleteLast = () => {
+    if (currentDisplay === "") {
+      return;
     }
+    var newDisplay = currentDisplay.split("");
+    var newValue = "";
+    if (newDisplay.at(-1) === " ") {
+      newDisplay.slice(0, -3).forEach((element) => {newValue += element});
+    }
+    else {
+      newDisplay.slice(0, -1).forEach((element) => {newValue += element});
+    }
+    setCurrentDisplay(newValue);
   }
 
   return (
@@ -39,18 +57,18 @@ const Calculator = ({startValue}) => {
         <button onClick={() => setCurrentDisplay(currentDisplay + "7")}>7</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "8")}>8</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "9")}>9</button>
-        <button onClick={() => {if (currentDisplay.at(-2) !== "+" && currentDisplay.at(-2) !== "-" && currentDisplay !== ""){setCurrentDisplay(currentDisplay + " + ")}}}>+</button>
+        <button onClick={() => {if ((currentDisplay.at(-2) !== "+" && currentDisplay.at(-2) !== "-" && currentDisplay !== "") || parseInt(currentDisplay) < 0){setCurrentDisplay(currentDisplay + " + ")}}}>+</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "4")}>4</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "5")}>5</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "6")}>6</button>
-        <button onClick={() => {if (currentDisplay.at(-2) !== "+" && currentDisplay.at(-2) !== "-" && currentDisplay !== ""){setCurrentDisplay(currentDisplay + " - ")}}}>-</button>
+        <button onClick={() => {if ((currentDisplay.at(-2) !== "+" && currentDisplay.at(-2) !== "-" && currentDisplay !== "") || parseInt(currentDisplay) < 0){setCurrentDisplay(currentDisplay + " - ")}}}>-</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "1")}>1</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "2")}>2</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "3")}>3</button>
         <button onClick={() => setCurrentDisplay("")}>CE</button>
+        <button onClick={() => deleteLast()}>DEL</button>
         <button className="width-4" onClick={() => {try{if (currentDisplay.at(-2) !== "+" && currentDisplay.at(-2) !== "-" && currentDisplay !== ""){Calculate()}}catch{console.log("error")}}}>ENTER</button>
         <button className="width-4" onClick={() => {if (currentDisplay.at(-2) !== "+" && currentDisplay.at(-2) !== "-" && currentDisplay !== ""){Calculate()}}}>ENTER WITH ERRORS</button>
-        <button className="width-4" onClick={() => console.log("Display is: " + currentDisplay)}>SHOW</button>
       </div>
     </>
   )
