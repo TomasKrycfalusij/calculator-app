@@ -1,0 +1,13 @@
+.buttons__grid {
+    width: max-content;
+    background-color: blue;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: repeat(4, 50px);
+    grid-auto-rows: auto;
+    gap: 5px;
+}
+
+.width-4 {
+    grid-column: span 4;
+}
