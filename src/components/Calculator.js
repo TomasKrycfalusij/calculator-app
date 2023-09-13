@@ -16,6 +16,30 @@ const Calculator = ({startValue}) => {
   }
   
   const checkSigns = (resultBefore, i) => {
+    
+    var map = [];
+    console.log(resultBefore);
+    var m;
+    for (m = 0; m < resultBefore.length; m++) {
+      if (resultBefore.at(m) === "×" || resultBefore.at(m) === "÷") {
+        map.push(m);
+        console.log(map);
+      }
+    }
+    
+
+    /*
+    resultBefore.forEach(element => {
+      if (element === "×" || element === "÷") {
+        console.log(resultBefore.indexOf(element));
+
+      }
+    });
+    */
+
+
+
+    /*
     if (resultBefore.length <= 1) {
       result = parseInt(resultBefore[0]);
     }
@@ -33,6 +57,7 @@ const Calculator = ({startValue}) => {
         i += 1;
       }
     }
+    */
   }
 
   const deleteLast = () => {
@@ -50,6 +75,15 @@ const Calculator = ({startValue}) => {
     setCurrentDisplay(newValue);
   }
 
+  const ifICanAddOperator = () => {
+    if ((currentDisplay.at(-2) !== "+" && currentDisplay.at(-2) !== "-" && currentDisplay.at(-2) !== "×" && currentDisplay.at(-2) !== "÷" && currentDisplay !== "") || (currentDisplay.at(0) === "-" && !currentDisplay.includes(" "))) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   return (
     <>
       <h3>Display: {currentDisplay}</h3>
@@ -57,18 +91,20 @@ const Calculator = ({startValue}) => {
         <button onClick={() => setCurrentDisplay(currentDisplay + "7")}>7</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "8")}>8</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "9")}>9</button>
-        <button onClick={() => {if ((currentDisplay.at(-2) !== "+" && currentDisplay.at(-2) !== "-" && currentDisplay !== "") || parseInt(currentDisplay) < 0){setCurrentDisplay(currentDisplay + " + ")}}}>+</button>
+        <button onClick={() => {if (ifICanAddOperator()){setCurrentDisplay(currentDisplay + " + ")}}}>+</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "4")}>4</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "5")}>5</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "6")}>6</button>
-        <button onClick={() => {if ((currentDisplay.at(-2) !== "+" && currentDisplay.at(-2) !== "-" && currentDisplay !== "") || parseInt(currentDisplay) < 0){setCurrentDisplay(currentDisplay + " - ")}}}>-</button>
+        <button onClick={() => {if (ifICanAddOperator()){setCurrentDisplay(currentDisplay + " - ")}}}>-</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "1")}>1</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "2")}>2</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "3")}>3</button>
         <button onClick={() => setCurrentDisplay("")}>CE</button>
         <button onClick={() => deleteLast()}>DEL</button>
-        <button className="width-4" onClick={() => {try{if (currentDisplay.at(-2) !== "+" && currentDisplay.at(-2) !== "-" && currentDisplay !== ""){Calculate()}}catch{console.log("error")}}}>ENTER</button>
-        <button className="width-4" onClick={() => {if (currentDisplay.at(-2) !== "+" && currentDisplay.at(-2) !== "-" && currentDisplay !== ""){Calculate()}}}>ENTER WITH ERRORS</button>
+        <button onClick={() => {if (ifICanAddOperator()){setCurrentDisplay(currentDisplay + " × ")}}}>×</button>
+        <button onClick={() => {if (ifICanAddOperator()){setCurrentDisplay(currentDisplay + " ÷ ")}}}>÷</button>
+        <button className="width-4" onClick={() => {try {if (ifICanAddOperator()){Calculate()}}catch{console.log("error")}}}>ENTER</button>
+        <button className="width-4" onClick={() => {if (ifICanAddOperator()){Calculate()}}}>ENTER WITH ERRORS</button>
       </div>
     </>
   )
