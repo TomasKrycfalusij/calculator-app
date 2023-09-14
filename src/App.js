@@ -4,7 +4,7 @@ import Calculator from './components/Calculator';
 function App() {
   return (
     <>
-      <h1>Caclulator</h1>
+      <h1>Calculator</h1>
       <Calculator startValue={""}/>
     </>
   );

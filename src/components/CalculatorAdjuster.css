@@ -1,0 +1,14 @@
+.calculator__slider {
+    max-width: 50px;
+    color: black;
+}
+
+.calculator__slider-track {
+    top: 8px;
+    height: 4px;
+    background: black;
+}
+
+.calculator__slider-track.calculator__slider-track {
+    background: blue;
+}
