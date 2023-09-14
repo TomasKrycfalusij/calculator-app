@@ -9,7 +9,6 @@ const CalculatorAdjuster = ({setBorderRadius}) => {
   const changeRadius = (event) => {
     setRadius(event.target.value)
     setBorderRadius(radius);
-    //console.log("CalculatorAdjuster", radius);
   };
 
   return (

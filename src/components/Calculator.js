@@ -6,7 +6,6 @@ import CalculatorAdjuster from './CalculatorAdjuster';
 const Calculator = ({startValue}) => {
   const [borderRadius, setBorderRadius] = useState(10);
 
-  console.log(borderRadius);
   var [currentDisplay, setCurrentDisplay] = useState(startValue);
   var result = 0;
   const Calculate = () => {
@@ -20,23 +19,23 @@ const Calculator = ({startValue}) => {
     var m;
     for (m = 0; m < resultBefore.length; m++) {
       if (resultBefore.at(m) === "×") {
-        resultBefore[m-1] = ((parseInt(resultBefore[m-1]) * parseInt(resultBefore[m+1]))).toString();
+        resultBefore[m-1] = ((parseFloat(resultBefore[m-1]) * parseFloat(resultBefore[m+1]))).toString();
         resultBefore.splice(m, 2);
         console.log("spliced ×", resultBefore);
       }
       if (resultBefore.at(m) === "÷") {
-        resultBefore[m-1] = ((parseInt(resultBefore[m-1]) / parseInt(resultBefore[m+1]))).toString();
+        resultBefore[m-1] = ((parseFloat(resultBefore[m-1]) / parseFloat(resultBefore[m+1]))).toString();
         resultBefore.splice(m, 2);
         console.log("spliced ÷", resultBefore);
       }
     }
     for (m = 0; m < resultBefore.length; m++) {
       if (resultBefore.at(m) === "+") {
-        resultBefore[m-1] = ((parseInt(resultBefore[m-1]) + parseInt(resultBefore[m+1]))).toString();
+        resultBefore[m-1] = ((parseFloat(resultBefore[m-1]) + parseFloat(resultBefore[m+1]))).toString();
         resultBefore.splice(m, 2);
       }
       if (resultBefore.at(m) === "-") {
-        resultBefore[m-1] = ((parseInt(resultBefore[m-1]) - parseInt(resultBefore[m+1]))).toString();
+        resultBefore[m-1] = ((parseFloat(resultBefore[m-1]) - parseFloat(resultBefore[m+1]))).toString();
         resultBefore.splice(m, 2);
       }
     }
