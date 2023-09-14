@@ -17,47 +17,32 @@ const Calculator = ({startValue}) => {
   
   const checkSigns = (resultBefore, i) => {
     
-    var map = [];
-    console.log(resultBefore);
+
+    console.log("before", resultBefore);
     var m;
     for (m = 0; m < resultBefore.length; m++) {
-      if (resultBefore.at(m) === "×" || resultBefore.at(m) === "÷") {
-        map.push(m);
-        console.log(map);
+      if (resultBefore.at(m) === "×") {
+        resultBefore[m-1] = ((parseInt(resultBefore[m-1]) * parseInt(resultBefore[m+1]))).toString();
+        resultBefore.splice(m, 2);
+        console.log("spliced ×", resultBefore);
+      }
+      if (resultBefore.at(m) === "÷") {
+        resultBefore[m-1] = ((parseInt(resultBefore[m-1]) / parseInt(resultBefore[m+1]))).toString();
+        resultBefore.splice(m, 2);
+        console.log("spliced ÷", resultBefore);
       }
     }
-    
-
-    /*
-    resultBefore.forEach(element => {
-      if (element === "×" || element === "÷") {
-        console.log(resultBefore.indexOf(element));
-
+    for (m = 0; m < resultBefore.length; m++) {
+      if (resultBefore.at(m) === "+") {
+        resultBefore[m-1] = ((parseInt(resultBefore[m-1]) + parseInt(resultBefore[m+1]))).toString();
+        resultBefore.splice(m, 2);
       }
-    });
-    */
-
-
-
-    /*
-    if (resultBefore.length <= 1) {
-      result = parseInt(resultBefore[0]);
-    }
-    result = parseInt(resultBefore[i]);
-    while (i < resultBefore.length) {
-      if (resultBefore[i] === "+") {
-        result += parseInt(resultBefore[i + 1]);
-        i += 1;
-      }
-      else if (resultBefore[i] === "-") {
-        result -= parseInt(resultBefore[i + 1]);
-        i += 1;
-      }
-      else {
-        i += 1;
+      if (resultBefore.at(m) === "-") {
+        resultBefore[m-1] = ((parseInt(resultBefore[m-1]) - parseInt(resultBefore[m+1]))).toString();
+        resultBefore.splice(m, 2);
       }
     }
-    */
+    result = parseFloat(resultBefore);
   }
 
   const deleteLast = () => {
@@ -99,9 +84,10 @@ const Calculator = ({startValue}) => {
         <button onClick={() => setCurrentDisplay(currentDisplay + "1")}>1</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "2")}>2</button>
         <button onClick={() => setCurrentDisplay(currentDisplay + "3")}>3</button>
-        <button onClick={() => setCurrentDisplay("")}>CE</button>
-        <button onClick={() => deleteLast()}>DEL</button>
         <button onClick={() => {if (ifICanAddOperator()){setCurrentDisplay(currentDisplay + " × ")}}}>×</button>
+        <button onClick={() => setCurrentDisplay(currentDisplay + "0")}>0</button>
+        <button onClick={() => deleteLast()}>DEL</button>
+        <button onClick={() => setCurrentDisplay("")}>CE</button>
         <button onClick={() => {if (ifICanAddOperator()){setCurrentDisplay(currentDisplay + " ÷ ")}}}>÷</button>
         <button className="width-4" onClick={() => {try {if (ifICanAddOperator()){Calculate()}}catch{console.log("error")}}}>ENTER</button>
         <button className="width-4" onClick={() => {if (ifICanAddOperator()){Calculate()}}}>ENTER WITH ERRORS</button>
