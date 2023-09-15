@@ -4,7 +4,21 @@ import { useState } from 'react';
 import CalculatorAdjuster from './CalculatorAdjuster';
 
 const Calculator = ({startValue}) => {
-  const [borderRadius, setBorderRadius] = useState(10);
+  // Radius
+  const [radius, setRadius] = useState(10);
+
+  const changeRadius = (event) => {
+    setRadius(event.target.value)
+  };
+
+  // Button height
+  
+  const [buttonHeight, setButtonHeight] = useState(30);
+
+  const changeButtonHeight = (event) => {
+    setButtonHeight(event.target.value)
+  };
+
 
   var [currentDisplay, setCurrentDisplay] = useState(startValue);
   var result = 0;
@@ -66,29 +80,30 @@ const Calculator = ({startValue}) => {
   }
   return (
     <>
-      <h3>Display: {currentDisplay}</h3>
       <div className="buttons__grid">
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "7")}>7</button>
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "8")}>8</button>
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "9")}>9</button>
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button" onClick={() => {if (ifICanAddOperator()){setCurrentDisplay(currentDisplay + " + ")}}}>+</button>
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "4")}>4</button>
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "5")}>5</button>
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "6")}>6</button>
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button" onClick={() => {if (ifICanAddOperator()){setCurrentDisplay(currentDisplay + " - ")}}}>-</button>
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "1")}>1</button>
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "2")}>2</button>
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "3")}>3</button>
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button" onClick={() => {if (ifICanAddOperator()){setCurrentDisplay(currentDisplay + " × ")}}}>×</button>
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "0")}>0</button>
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button" onClick={() => deleteLast()}>DEL</button>
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button" onClick={() => setCurrentDisplay("")}>CE</button>
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button" onClick={() => {if (ifICanAddOperator()){setCurrentDisplay(currentDisplay + " ÷ ")}}}>÷</button>
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button width--4" onClick={() => {try {if (ifICanAddOperator()){Calculate()}}catch{console.log("error")}}}>ENTER</button>
-        <button style={{borderRadius: borderRadius + "px"}} className="calculator__button width--4" onClick={() => {if (ifICanAddOperator()){Calculate()}}}>ENTER WITH ERRORS</button>
+        <h3 style={{color: "white"}} className="width--4" >Display: {currentDisplay}</h3>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "7")}>7</button>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "8")}>8</button>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "9")}>9</button>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button" onClick={() => {if (ifICanAddOperator()){setCurrentDisplay(currentDisplay + " + ")}}}>+</button>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "4")}>4</button>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "5")}>5</button>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "6")}>6</button>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button" onClick={() => {if (ifICanAddOperator()){setCurrentDisplay(currentDisplay + " - ")}}}>-</button>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "1")}>1</button>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "2")}>2</button>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "3")}>3</button>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button" onClick={() => {if (ifICanAddOperator()){setCurrentDisplay(currentDisplay + " × ")}}}>×</button>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button" onClick={() => setCurrentDisplay(currentDisplay + "0")}>0</button>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button" onClick={() => deleteLast()}>DEL</button>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button" onClick={() => setCurrentDisplay("")}>CE</button>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button" onClick={() => {if (ifICanAddOperator()){setCurrentDisplay(currentDisplay + " ÷ ")}}}>÷</button>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button width--4" onClick={() => {try {if (ifICanAddOperator()){Calculate()}}catch{console.log("error")}}}>ENTER</button>
+        <button style={{borderRadius: radius + "px", height: buttonHeight + "px"}} className="calculator__button width--4" onClick={() => {if (ifICanAddOperator()){Calculate()}}}>ENTER WITH ERRORS</button>
       </div>
-      <h1>Test</h1>
-      <CalculatorAdjuster setBorderRadius={setBorderRadius}/>
+      <h1>Adjust your calculator!</h1>
+      <CalculatorAdjuster changeFunction={changeRadius} value={radius} min={0} max={30} name={"Button radius"}/>
+      <CalculatorAdjuster changeFunction={changeButtonHeight} value={buttonHeight} min={20} max={50} name={"Button height"}/>
     </>
   )
 }
